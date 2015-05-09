@@ -1,7 +1,8 @@
 import pyIRC, TWPTwitter, TWPStocks, re, sys
 
-CHAN		= '#TimeWastePool'
-NICK		= 'TheTWP'
+CHAN		= ''
+NICK		= ''
+NICK_PWD	= ''
 AUTOJOIN	= True
 TWITTER_KEYS= {
 	'ck'	: open('t_ck').read().rstrip('\n'),
@@ -12,10 +13,10 @@ TWITTER_KEYS= {
 COMMANDS = {
 	'!follow'		: ['USAGE: !follow @twitter_user','DESCRIPTION: adds @twitter_user to the database table of users we follow'],
 	'!unfollow'		: ['USAGE: !unfollow @twitter_user','DESCRIPTION: removes @twitter_user to the database table of users we follow'],
-	'!twitterlist'	: ['USAGE: !twitterlist','DESCRIPTION: send you a list of all the users we are following on Twitter'],
-	'!watchstock'	: ['USAGE: !watchstock stocksymbol', 'DESCRIPTION: adds a stock symbol to the table of stock symbols we watch'],
-	'!removestock'	: ['USAGE: !remove stocksymbol', 'DESCRIPTION: removes a stock sybmol from the table of stock symbols we are watching'],
-	'!stockprice'	: ['USAGE: !stockprice stocksymbol', 'DESCRIPTION get the price of one share of the given stock sybmol'],
+	'!twitterlist'		: ['USAGE: !twitterlist','DESCRIPTION: send you a list of all the users we are following on Twitter'],
+	'!watchstock'		: ['USAGE: !watchstock stocksymbol', 'DESCRIPTION: adds a stock symbol to the table of stock symbols we watch'],
+	'!removestock'		: ['USAGE: !remove stocksymbol', 'DESCRIPTION: removes a stock sybmol from the table of stock symbols we are watching'],
+	'!stockprice'		: ['USAGE: !stockprice stocksymbol', 'DESCRIPTION get the price of one share of the given stock sybmol'],
 	'!help'			: ['USAGE: !help','DESCRIPTION: you are literally using this right now...']
 }
 
@@ -101,7 +102,7 @@ STOCKS = TWPStocks.TWPStocks()
 		
 TWITTER = TWPTwitter.TWPTwitter(ck=TWITTER_KEYS['ck'], cs=TWITTER_KEYS['cs'], atk=TWITTER_KEYS['atk'], ats=TWITTER_KEYS['ats'])
 
-BOT = pyIRC.Bot(chan=CHAN, nick=NICK, autojoin=AUTOJOIN)
+BOT = pyIRC.Bot(chan=CHAN, nick=NICK, autojoin=AUTOJOIN, registered_nick=REG_NICK)
 BOT.connect()
 
 try:

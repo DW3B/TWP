@@ -2,12 +2,13 @@ import socket, sys
 
 class Bot(object):
 	
-	def __init__(self, chan, nick, serv='irc.freenode.net', port=6667, autojoin=False, silent=False):
+	def __init__(self, chan, nick, serv='irc.freenode.net', port=6667, autojoin=False, silent=False, registered_nick=False):
 		self.serv		= serv
 		self.port		= port
 		self.chan		= chan
 		self.nick		= nick
-		self.autojoin	= autojoin
+		self.registered_nick	= registered_nick
+		self.autojoin		= autojoin
 		self.silent		= silent
 		self.sock		= None
 	
@@ -47,6 +48,8 @@ class Bot(object):
 		self.sock.connect((self.serv, self.port))
 		self.send_raw('USER {0} {0} {0} :Python IRC Bot'.format(self.nick))
 		self.send_raw('NICK {0}'.format(self.nick))
+		if registered_nick:
+			self.send_raw('NICKSERV {0} identify {1}'.format(self.nick, self.registered_nick))
 		if self.autojoin:
 			self.join()
 		return self.sock
