@@ -48,8 +48,8 @@ class Bot(object):
 		self.sock.connect((self.serv, self.port))
 		self.send_raw('USER {0} {0} {0} :Python IRC Bot'.format(self.nick))
 		self.send_raw('NICK {0}'.format(self.nick))
-		if registered_nick:
-			self.send_raw('NICKSERV {0} identify {1}'.format(self.nick, self.registered_nick))
+		if self.registered_nick:
+			self.send_msg('NICKSERV', 'identify {0}'.format(self.registered_nick))
 		if self.autojoin:
 			self.join()
 		return self.sock
